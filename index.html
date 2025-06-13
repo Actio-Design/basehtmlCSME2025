@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es" class="min-h-screen">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar Fullscreen + Footer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- CDN de Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const header = document.querySelector('#navbar');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 10) {
+          header.classList.add(
+            'fixed', 'top-0', 'left-0', 'w-full', 'z-50',
+            'shadow-lg', 'translate-y-0', 'opacity-100', 'bg-neutral-900'
+          );
+          header.classList.remove(
+            'relative', 'opacity-0', '-translate-y-full'
+          );
+        } else {
+          header.classList.remove(
+            'fixed', 'top-0', 'left-0', 'w-full', 'z-50',
+            'shadow-lg', 'translate-y-0', 'opacity-100'
+          );
+          header.classList.add(
+            'relative', 'opacity-0', '-translate-y-full', 'bg-neutral-900'
+          );
+
+          // Espera la animación y remueve visibilidad para evitar parpadeo
+          setTimeout(() => {
+            header.classList.remove('opacity-0', '-translate-y-full');
+          }, 300); // debe coincidir con duration-300
+        }
+      });
+    });
+  </script>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+  <!-- ✅ Checkbox para el toggle -->
+  <input type="checkbox" id="menu-toggle" class="peer hidden" />
+
+  <!-- ✅ Header navbar -->
+  <header id="navbar"
+    class="top-0 left-0 w-full z-50 bg-neutral-900 text-white transition-all duration-300 ease-out transform ">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center h-20">
+      <img src="./assets/img/logo.svg" alt="Logotipo Colegio" class="h-16 block items-center inset-0">
+
+      <!-- ✅ Botón hamburguesa animado -->
+      <label for="menu-toggle" class="md:hidden flex flex-col justify-between w-8 h-6 cursor-pointer z-50 relative">
+        <span
+          class="h-1 bg-white rounded transition-all duration-300 origin-top-left peer-checked:rotate-45 peer-checked:translate-y-2"></span>
+        <div class="icon-menu"></div>
+        <span class="h-1 bg-white rounded transition-all duration-300 peer-checked:opacity-0"></span>
+        <span
+          class="h-1 bg-white rounded transition-all duration-300 origin-bottom-left peer-checked:-rotate-45 peer-checked:-translate-y-2"></span>
+      </label>
+
+      <!-- redes sociales -->
+      <div class="hidden md:flex gap-4 items-center">
+        <a href="#" class="text-white hover:text-blue-400 transition-colors">
+          <i data-lucide="facebook" class="w-6 h-6"></i>
+        </a>
+        <a href="#" class="text-white hover:text-pink-500 transition-colors">
+          <i data-lucide="instagram" class="w-6 h-6"></i>
+        </a>
+        <a href="#" class="text-white hover:text-sky-400 transition-colors">
+          <i data-lucide="twitter" class="w-6 h-6"></i>
+        </a>
+        <a href="#" class="text-white hover:text-blue-300 transition-colors">
+          <i data-lucide="linkedin" class="w-6 h-6"></i>
+        </a>
+      </div>
+
+
+      <!-- ✅ Menú desktop -->
+      <nav class="hidden md:flex gap-8 text-lg">
+        <a href="#" class="hover:text-blue-400 transition">Inicio</a>
+
+        <div class="relative group">
+          <button class="hover:text-blue-400 transition">Servicios ▾</button>
+          <div
+            class="absolute left-0 top-full mt-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 flex flex-col bg-neutral-800 rounded shadow-lg p-4 gap-2 z-50 min-w-[10rem]">
+            <a href="#" class="hover:text-blue-400">Diseño</a>
+            <a href="#" class="hover:text-blue-400">Desarrollo</a>
+            <a href="#" class="hover:text-blue-400">Marketing</a>
+          </div>
+        </div>
+
+        <a href="#" class="hover:text-blue-400 transition">Nosotros</a>
+        <a href="#" class="hover:text-blue-400 transition">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ✅ Menú móvil fullscreen -->
+  <div
+    class="fixed inset-0 h-screen w-full bg-neutral-900/95 backdrop-blur-sm z-40 flex-col justify-center items-center gap-10 text-2xl translate-y-full peer-checked:translate-y-0 transition-all duration-500 ease-in-out md:hidden hidden peer-checked:flex">
+    <a href="#" class="hover:text-blue-400 transition">Inicio</a>
+    <details class="group">
+      <summary class="cursor-pointer hover:text-blue-400 transition">Servicios</summary>
+      <div class="flex flex-col mt-2 ml-4 gap-2 text-lg text-neutral-300">
+        <a href="#" class="hover:text-blue-400">Diseño</a>
+        <a href="#" class="hover:text-blue-400">Desarrollo</a>
+        <a href="#" class="hover:text-blue-400">Marketing</a>
+      </div>
+    </details>
+    <a href="#" class="hover:text-blue-400 transition">Nosotros</a>
+    <a href="#" class="hover:text-blue-400 transition">Contacto</a>
+  </div>
+  <!-- Hero Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div class="swiper-slide relative w-full h-full">
+        <!-- Imagen de fondo responsive -->
+        <picture class="absolute inset-0">
+          <source media="(min-width:1024px)" srcset="./assets/img/slider/bvanner_desktop.jpg" />
+
+          <img src="./assets/img/slider/banner_mobile.jpg" alt="Banner 1" class="w-full h-full object-cover" />
+        </picture>
+
+        <!-- Contenido -->
+        <div class="container mx-auto h-full px-4 flex flex-col lg:flex-row items-center justify-center text-white">
+          <!-- Texto -->
+          <div class="w-full lg:w-1/2 text-center lg:text-left space-y-4">
+            <h2 class="text-3xl md:text-5xl font-bold drop-shadow-md animate-fade-in">
+              Educación para el Futuro
+            </h2>
+            <p class="text-lg md:text-xl drop-shadow">
+              Conecta con recursos y oportunidades sin límites. f fjkhdsjkf dskjfhdsjk fdskjhkjds kjdshfkjdsh
+              fdskjfhdskjh jkh
+            </p>
+          </div>
+          <button
+            class="inline-block bg-secundario hover:bg-primario text-white font-semibold py-2 px-6 rounded-xl transition-all duration-300 shadow-md">
+            Revisar ahora...
+          </button>
+
+          <!-- Espacio lateral -->
+          <div class="hidden lg:block lg:w-1/2">fsdfdsfdsfds</div>
+          <div class="swiper-lazy-preloader"></div>
+        </div>
+
+      </div>
+      <!-- Slide 2 -->
+      <div class="swiper-slide relative w-full h-full">
+        <!-- Imagen de fondo responsive -->
+        <picture class="absolute inset-0">
+          <source media="(min-width:1024px)" srcset="./assets/img/slider/slider-colegio.webp" />
+
+          <img src="./assets/img/slider/banner_mobile.jpg" alt="Banner 1" class="w-full h-full object-cover" />
+        </picture>
+
+        <!-- Contenido -->
+        <div class="container mx-auto h-full px-4 flex flex-col lg:flex-row items-center justify-center text-white">
+          <!-- Texto -->
+          <div class="w-full lg:w-1/2 text-center lg:text-left space-y-4">
+            <h2 class="text-3xl md:text-5xl font-bold drop-shadow-md animate-fade-in">
+              Los primeros pasos hacia el éxito
+            </h2>
+            <p class="text-lg md:text-xl drop-shadow">
+              Conecta con recursos y oportunidades sin límites.
+            </p>
+            <a href="#explora"
+              class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl transition-all duration-300 shadow-md">
+              Explorar ahora
+            </a>
+          </div>
+          <!-- Espacio lateral -->
+          <div class="hidden lg:block lg:w-1/2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+  <!-- ✅ Contenido principal -->
+
+  <!-- contenido principal -->
+  <main class="">
+    <!-- noticias -->
+    <section class="w-full bg-amber-200 pt-6 pb-12">
+      <!-- titulo -->
+      <div class="text-3xl font-semibold text-center my-8">Últimas Noticias
+        <br>& Novedades <span class="text-secundario">CSME</span>
+      </div>
+      <!-- Noticias -->
+      <div class="container mx-auto grid grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] gap-6 text-center">
+        <!-- Card 1 -->
+        <div class="bg-white p-4 shadow rounded-xl">
+          <div class="grid-rows-3">
+            <img class="rounded-t-xl" src="./assets/img/slider/botar2.jpg" alt="Foto Noticia">
+          </div>
+          <div class="flex flex-col-2 justify-between py-2">
+            <div>
+              <span class=" text-xs">Fecha: </span><span class="font-bold">18/05/2025</span>
+            </div>
+            <div>
+              <span class=" text-xs">Tag: </span><span class="font-bold">Noticia</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-lg line-clamp-2 font-semibold my-4">Título de la Noticia jksankdj skjdjsak djksadhkjsa
+              hjskahdjksa sajkdhjksahd sakjdhsajkd hsakj</h2>
+            <p class="truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt
+              ut labore et dolore magna aliqua.</p>
+          </div>
+          <div>
+            <button class="bg-secundario p-4 rounded-lg cursor-pointer mt-7">Leer más</button>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white p-4 shadow rounded-xl">
+          <div class="grid-rows-3">
+            <img class="rounded-t-xl" src="./assets/img/slider/botar2.jpg" alt="Foto Noticia">
+          </div>
+          <div class="flex flex-col-2 justify-between py-2">
+            <div>
+              <span class=" text-xs">Fecha: </span><span class="font-bold">18/05/2025</span>
+            </div>
+            <div>
+              <span class=" text-xs">Tag: </span><span class="font-bold">Noticia</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-lg line-clamp-2 font-semibold my-4">Título de la Noticia jksankdj skjdjsak djksadhkjsa
+              hjskahdjksa sajkdhjksahd sakjdhsajkd hsakj</h2>
+            <p class="truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt
+              ut labore et dolore magna aliqua.</p>
+          </div>
+          <div>
+            <button class="bg-secundario p-4 rounded-lg cursor-pointer mt-7">Leer más</button>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white p-4 shadow rounded-xl">
+          <div class="grid-rows-3">
+            <img class="rounded-t-xl" src="./assets/img/slider/botar2.jpg" alt="Foto Noticia">
+          </div>
+          <div class="flex flex-col-2 justify-between py-2">
+            <div>
+              <span class=" text-xs">Fecha: </span><span class="font-bold">18/05/2025</span>
+            </div>
+            <div>
+              <span class=" text-xs">Tag: </span><span class="font-bold">Noticia</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-lg line-clamp-2 font-semibold my-4">Título de la Noticia jksankdj skjdjsak djksadhkjsa
+              hjskahdjksa sajkdhjksahd sakjdhsajkd hsakj</h2>
+            <p class="truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt
+              ut labore et dolore magna aliqua.</p>
+          </div>
+          <div>
+            <button class="bg-secundario p-4 rounded-lg cursor-pointer mt-7">Leer más</button>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white p-4 shadow rounded-xl">
+          <div class="grid-rows-3">
+            <img class="rounded-t-xl" src="./assets/img/slider/botar2.jpg" alt="Foto Noticia">
+          </div>
+          <div class="flex flex-col-2 justify-between py-2">
+            <div>
+              <span class=" text-xs">Fecha: </span><span class="font-bold">18/05/2025</span>
+            </div>
+            <div>
+              <span class=" text-xs">Tag: </span><span class="font-bold">Noticia</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-lg line-clamp-2 font-semibold my-4">Título de la Noticia jksankdj skjdjsak djksadhkjsa
+              hjskahdjksa sajkdhjksahd sakjdhsajkd hsakj</h2>
+            <p class="truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt
+              ut labore et dolore magna aliqua.</p>
+          </div>
+          <div>
+            <button class="bg-secundario p-4 rounded-lg cursor-pointer mt-7">Leer más</button>
+          </div>
+        </div>
+      </div>
+    </section>
+     <!-- Links año -->
+    <section class="w-full bg-terciario rounded-lg pt-6 pb-12 ">
+      <!-- titulo --4
+      <div class="text-3xl font-semibold text-center my-16">Links - acceso rápido 2025 <span
+          class="text-secundario">CSME</span>
+      </div>
+      <!-- un articulo -->
+      <div class="container mx-auto grid grid-cols-1 md:grid-cols-[repeat(auto-fill,_minmax(480px,_1fr))] gap-4 mt-4">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] auto-rows-auto">
+
+            <!-- Columna izquierda con ancho fijo -->
+            <div class="flex items-center justify-center row-span-3 bg-gray-100 md: p-4">
+              <i class="w-12 h-12 m-0 p-0 text-center" data-lucide="calendar-clock"></i>
+            </div>
+
+            <!-- Contenido en 3 filas -->
+            <div class="p-4 flex align-top">
+              <h2 class="text-lg font-semibold">Horario clases 2025</h2>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-gray-600">Hipster ipsum tattooed brunch I'm baby. Goth letterpress shoreditch tofu
+                art scenester activated jianbing. Squid unicorn aesthetic bulb disrupt dreamcatcher. Big forage probably
+                direct charcoal </p>
+            </div>
+            <div class="p-4">
+              <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Obtener
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] auto-rows-auto">
+
+            <!-- Columna izquierda con ancho fijo -->
+            <div class="flex items-center justify-center row-span-3 bg-gray-100 p-4">
+              <i class="w-12 h-12 m-0 p-0 text-center" data-lucide="pencil-ruler"></i>
+            </div>
+
+            <!-- Contenido en 3 filas -->
+            <div class="p-4 flex align-top">
+              <h2 class="text-lg font-semibold">Utiles escolares 2025</h2>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-gray-600">Hipster ipsum tattooed brunch I'm baby. Goth letterpress shoreditch tofu
+                art scenester activated jianbing. Squid unicorn aesthetic bulb disrupt dreamcatcher. Big forage probably
+                direct charcoal </p>
+            </div>
+            <div class="p-4">
+              <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Obtener
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] auto-rows-auto">
+
+            <!-- Columna izquierda con ancho fijo -->
+            <div class="flex items-center justify-center row-span-3 bg-gray-100 p-4">
+              <i class="w-12 h-12 m-0 p-0 text-center" data-lucide="notebook-text"></i>
+            </div>
+
+            <!-- Contenido en 3 filas -->
+            <div class="p-4 flex align-top">
+              <h2 class="text-lg font-semibold">Matrícula 2025</h2>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-gray-600">Hipster ipsum tattooed brunch I'm baby. Goth letterpress shoreditch tofu
+                art scenester activated jianbing. Squid unicorn aesthetic bulb disrupt dreamcatcher. Big forage probably
+                direct charcoal </p>
+            </div>
+            <div class="p-4">
+              <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Obtener
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] auto-rows-auto">
+
+            <!-- Columna izquierda con ancho fijo -->
+            <div class="flex items-center justify-center row-span-3 bg-gray-100 p-4">
+              <i class="w-12 h-12 m-0 p-0 text-center" data-lucide="gift"></i>
+            </div>
+
+            <!-- Contenido en 3 filas -->
+            <div class="p-4 flex align-top">
+              <h2 class="text-lg font-semibold">Ficha postulación becas 2025</h2>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-gray-600">Hipster ipsum tattooed brunch I'm baby. Goth letterpress shoreditch tofu
+                art scenester activated jianbing. Squid unicorn aesthetic bulb disrupt dreamcatcher. Big forage probably
+                direct charcoal </p>
+            </div>
+            <div class="p-4">
+              <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Obtener
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] auto-rows-auto">
+
+            <!-- Columna izquierda con ancho fijo -->
+            <div class="flex items-center justify-center row-span-3 bg-gray-100 p-4">
+              <i class="w-12 h-12 m-0 p-0 text-center" data-lucide="crosshair"></i>
+            </div>
+
+            <!-- Contenido en 3 filas -->
+            <div class="p-4 flex align-top">
+              <h2 class="text-lg font-semibold">Asignatura electivas 2025</h2>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-gray-600">Hipster ipsum tattooed brunch I'm baby. Goth letterpress shoreditch tofu
+                art scenester activated jianbing. Squid unicorn aesthetic bulb disrupt dreamcatcher. Big forage probably
+                direct charcoal </p>
+            </div>
+            <div class="p-4">
+              <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Obtener
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[80px_1fr] auto-rows-auto">
+
+            <!-- Columna izquierda con ancho fijo -->
+            <div class="flex items-center justify-center row-span-3 bg-gray-100 p-4">
+              <i class="w-12 h-12 m-0 p-0 text-center" data-lucide="book-down"></i>
+            </div>
+
+            <!-- Contenido en 3 filas -->
+            <div class="p-4 flex align-top">
+              <h2 class="text-lg font-semibold">Reglamento 2025 2025</h2>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-gray-600">Hipster ipsum tattooed brunch I'm baby. Goth letterpress shoreditch tofu
+                art scenester activated jianbing. Squid unicorn aesthetic bulb disrupt dreamcatcher. Big forage probably
+                direct charcoal </p>
+            </div>
+            <div class="p-4">
+              <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Obtener
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-200 py-6">
+    <div class="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+      <!-- Columna 1: Información de contacto -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 text-white">Contacto</h3>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2">
+            <i data-lucide="map-pin" class="w-5 h-5 text-lime-400"></i>
+            <span>Av. Siempre Viva 123, Springfield</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="phone" class="w-5 h-5 text-lime-400"></i>
+            <span>+56 9 1234 5678</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i data-lucide="mail" class="w-5 h-5 text-lime-400"></i>
+            <span>contacto@misitio.cl</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 2: Enlaces rápidos -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 text-white">Enlaces</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Inicio</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Nosotros</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Productos</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Redes sociales -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 text-white">Síguenos</h3>
+        <div class="flex gap-4">
+          <a href="#" aria-label="Facebook" class="hover:text-blue-500 transition-colors">
+            <i data-lucide="facebook" class="w-6 h-6"></i>
+          </a>
+          <a href="#" aria-label="Instagram" class="hover:text-pink-500 transition-colors">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </a>
+          <a href="#" aria-label="Twitter" class="hover:text-sky-400 transition-colors">
+            <i data-lucide="twitter" class="w-6 h-6"></i>
+          </a>
+          <a href="#" aria-label="LinkedIn" class="hover:text-blue-300 transition-colors">
+            <i data-lucide="linkedin" class="w-6 h-6"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center text-gray-500 text-xs border-t border-gray-700 h-10 flex justify-center items-center ">
+      © 2025 Mi Sitio. Todos los derechos reservados.
+    </div>
+
+
+  </footer>
+  <!-- inicializar lucide icons -->
+  <script>
+    window.addEventListener('load', () => {
+      window.lucide && window.lucide.createIcons();
+    });
+  </script>
+  <!-- CDN de swiper -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      effect: "fade",
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      keyboard: {
+        enabled: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        // type: "progressbar",
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + (index + 1) + "</span>";
+        },
+        clickable: true,
+      },
+    });
+  </script>
+  <!-- Licide Icon -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
